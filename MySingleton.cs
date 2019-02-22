@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Key.Ultility
+namespace Ultility
 {
     public abstract class MySingleton <T> : MonoBehaviour where T : MySingleton<T>
     {
