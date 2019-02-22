@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Key.Ultility
+namespace Ultility
 {
     public sealed class EventManager : MySingleton<EventManager>
     {
@@ -18,7 +18,7 @@ namespace Key.Ultility
         private void OnDisable()
         {
             Log.Info("EventManager:OnDisable()");
-            Key_ClearAllListener();
+            ClearAllListener();
         }
 
         protected void OnDestroy()
@@ -27,7 +27,7 @@ namespace Key.Ultility
             Instance = null;
         }
 
-        public void Key_RegisterListener(EventID eventID, UnityAction<object> callback)
+        public void RegisterListener(EventID eventID, UnityAction<object> callback)
         {
             if (dictListeners.ContainsKey(eventID))
             {
@@ -40,7 +40,7 @@ namespace Key.Ultility
             }
         }
 
-        public void Key_PostEvent(EventID eventID, object param = null)
+        public void PostEvent(EventID eventID, object param = null)
         {
             if (!dictListeners.ContainsKey(eventID))
             {
@@ -57,7 +57,7 @@ namespace Key.Ultility
             }
         }
 
-        public void Key_RemoveListener(EventID eventID, UnityAction<object> callback)
+        public void RemoveListener(EventID eventID, UnityAction<object> callback)
         {
             // checking params
             Log.Assert(callback != null, "RemoveListener, event {0}, callback = null !!", eventID.ToString());
@@ -71,7 +71,7 @@ namespace Key.Ultility
             }
         }
 
-        public void Key_ClearAllListener()
+        public void ClearAllListener()
         {
             foreach (var eventCallback in dictListeners)
             {
@@ -90,7 +90,7 @@ namespace Key.Ultility
 namespace Key.Ultility
 {
     /// <summary>
-    /// Delare some "shortcut" for using EventDispatcher easier
+    /// Delare some "shortcut" for using EventManager easier
     /// </summary>
     public static class EventManagerSystemExtension
     {
@@ -98,33 +98,33 @@ namespace Key.Ultility
         /// Use for registering with EventsManager
         /// </summary>
         /// "this MonoBehaviour listener" for all MonoBehaviour can access
-        public static void Key_RegisterListener(this MonoBehaviour listener, EventID eventID, UnityAction<object> callback)
+        public static void RegisterListener(this MonoBehaviour listener, EventID eventID, UnityAction<object> callback)
         {
-            EventManager.Instance?.Key_RegisterListener(eventID, callback);
+            EventManager.Instance?.RegisterListener(eventID, callback);
         }
 
         /// <summary>
         /// Post event with param
         /// </summary>
-        public static void Key_PostEvent(this MonoBehaviour listener, EventID eventID, object param)
+        public static void PostEvent(this MonoBehaviour listener, EventID eventID, object param)
         {
-            EventManager.Instance?.Key_PostEvent(eventID, param);
+            EventManager.Instance?.PostEvent(eventID, param);
         }
 
         /// <summary>
         /// Post event with no param (param = null)
         /// </summary>
-        public static void Key_PostEvent(this MonoBehaviour sender, EventID eventID)
+        public static void PostEvent(this MonoBehaviour sender, EventID eventID)
         {
-            EventManager.Instance?.Key_PostEvent(eventID, null);
+            EventManager.Instance?.PostEvent(eventID, null);
         }
 
         /// <summary>
         /// Post event with no param (param = null)
         /// </summary>
-        public static void Key_RemoveEvent(this MonoBehaviour sender, EventID eventID, UnityAction<object> callback)
+        public static void RemoveEvent(this MonoBehaviour sender, EventID eventID, UnityAction<object> callback)
         {
-            EventManager.Instance?.Key_RemoveListener(eventID, callback);
+            EventManager.Instance?.RemoveListener(eventID, callback);
         }
     }
 }
