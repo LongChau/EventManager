@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine.Events;
 
-namespace Key.Ultility
+namespace Ultility
 {
     [Serializable]
     public class MyCustomEvent : UnityEvent<object>
