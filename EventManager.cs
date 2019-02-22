@@ -87,7 +87,7 @@ namespace Ultility
 
 #region Extension class
 
-namespace Key.Ultility
+namespace Ultility
 {
     /// <summary>
     /// Delare some "shortcut" for using EventManager easier
