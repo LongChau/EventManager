@@ -42,6 +42,7 @@ namespace Ultility
         }
 
         // Put all the initializations you need here, as you would do in Awake
+        // For example: DontDestroyOnload(this);
         public virtual void Init() { }
 
         // Awake is called when the script instance is being loaded

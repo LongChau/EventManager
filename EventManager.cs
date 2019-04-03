@@ -17,13 +17,13 @@ namespace Ultility
 
         private void OnDisable()
         {
-            Log.Info("EventManager:OnDisable()");
+            Log.LogI("EventManager:OnDisable()");
             ClearAllListener();
         }
 
         protected void OnDestroy()
         {
-            Log.Info("EventManager:OnDestroy()");
+            Log.LogI("EventManager:OnDestroy()");
             Instance = null;
         }
 
@@ -44,7 +44,7 @@ namespace Ultility
         {
             if (!dictListeners.ContainsKey(eventID))
             {
-                Log.Warning($"No listener for this event: {eventID.ToString()}");
+                Log.LogE($"No listener for this event: {eventID.ToString()}");
                 return;
             }
 
@@ -52,7 +52,7 @@ namespace Ultility
 
             if (dictListeners[eventID] == null)
             {
-                Log.Warning($"PostEvent {eventID}, but no listener remain, Remove this key");
+                Log.LogE($"PostEvent {eventID}, but no listener remain, Remove this key");
                 dictListeners.Remove(eventID);
             }
         }
@@ -60,14 +60,14 @@ namespace Ultility
         public void RemoveListener(EventID eventID, UnityAction<object> callback)
         {
             // checking params
-            Log.Assert(callback != null, "RemoveListener, event {0}, callback = null !!", eventID.ToString());
-            Log.Assert(eventID != EventID.None, "AddListener, event = None !!");
+            //Log.Assert(callback != null, "RemoveListener, event {0}, callback = null !!", eventID.ToString());
+            //Log.Assert(eventID != EventID.None, "AddListener, event = None !!");
 
             dictListeners[eventID]?.RemoveListener(callback);
 
             if (!dictListeners.ContainsKey(eventID))
             {
-                Log.Warning(false, "RemoveListener, not found key : " + eventID);
+                Log.LogE("RemoveListener, not found key : " + eventID);
             }
         }
 
@@ -76,7 +76,7 @@ namespace Ultility
             foreach (var eventCallback in dictListeners)
             {
                 eventCallback.Value.RemoveAllListeners();
-                Log.Info($"Event {eventCallback.Key.ToString()} removed");
+                Log.LogI($"Event {eventCallback.Key.ToString()} removed");
             }
 
             dictListeners.Clear();
