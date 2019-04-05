@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+//author: @LONG
 namespace Ultility
 {
     public sealed class EventManager : MySingleton<EventManager>
